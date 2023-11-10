@@ -8,17 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		3D2507A12AFE6391008835E5 /* TransportMonitoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */; };
-		3D2507A32AFE6391008835E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507A22AFE6391008835E5 /* ContentView.swift */; };
+		3D2507A32AFE6391008835E5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507A22AFE6391008835E5 /* MainView.swift */; };
 		3D2507A52AFE6392008835E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2507A42AFE6392008835E5 /* Assets.xcassets */; };
 		3D2507A82AFE6392008835E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2507A72AFE6392008835E5 /* Preview Assets.xcassets */; };
+		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3D25079D2AFE6391008835E5 /* TransportMonitoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransportMonitoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportMonitoringApp.swift; sourceTree = "<group>"; };
-		3D2507A22AFE6391008835E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D2507A22AFE6391008835E5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3D2507A42AFE6392008835E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D2507A72AFE6392008835E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
+		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +42,8 @@
 			children = (
 				3D25079F2AFE6391008835E5 /* TransportMonitoring */,
 				3D25079E2AFE6391008835E5 /* Products */,
+				4ECDD4E4DADB28AF046874DB /* Pods */,
+				BD9CF79F30E0DA1703419E29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
-				3D2507A22AFE6391008835E5 /* ContentView.swift */,
+				3D2507A22AFE6391008835E5 /* MainView.swift */,
 				3D2507A42AFE6392008835E5 /* Assets.xcassets */,
 				3D2507A62AFE6392008835E5 /* Preview Content */,
 			);
@@ -67,6 +74,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4ECDD4E4DADB28AF046874DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */,
+				C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BD9CF79F30E0DA1703419E29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D2507AB2AFE6392008835E5 /* Build configuration list for PBXNativeTarget "TransportMonitoring" */;
 			buildPhases = (
+				152FC211DF859E65988FE43A /* [CP] Check Pods Manifest.lock */,
 				3D2507992AFE6391008835E5 /* Sources */,
 				3D25079A2AFE6391008835E5 /* Frameworks */,
 				3D25079B2AFE6391008835E5 /* Resources */,
+				AD7F1A8E1CC5F8EA3EB34E66 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,12 +158,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		152FC211DF859E65988FE43A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TransportMonitoring-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD7F1A8E1CC5F8EA3EB34E66 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3D2507992AFE6391008835E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D2507A32AFE6391008835E5 /* ContentView.swift in Sources */,
+				3D2507A32AFE6391008835E5 /* MainView.swift in Sources */,
 				3D2507A12AFE6391008835E5 /* TransportMonitoringApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +334,7 @@
 		};
 		3D2507AC2AFE6392008835E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -278,8 +347,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,14 +357,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.VadimKuzmin.TransportMonitoring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		3D2507AD2AFE6392008835E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -307,8 +381,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,9 +391,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.VadimKuzmin.TransportMonitoring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

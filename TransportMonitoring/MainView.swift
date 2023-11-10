@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  TransportMonitoring
 //
 //  Created by Вадим Кузьмин on 10.11.2023.
@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundStyle(.tint)
             Text("Hello, world!")
         }
         .padding()
@@ -20,5 +19,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MainView()
 }
