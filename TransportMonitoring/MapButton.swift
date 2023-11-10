@@ -11,6 +11,7 @@ struct MapButton: View {
     let imageSystemName: String
     let imageSize: CGFloat
     let imageWeight: Font.Weight
+    let imageColor: Color
     let action: () -> Void
 
     var body: some View {
@@ -20,20 +21,21 @@ struct MapButton: View {
                     .frame(width: 45, height: 45)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 0.5)
+                            .stroke(lineWidth: 1)
+                            .modifier(ForegroundColor(color: .spBorderPurple))
                     )
                     .modifier(ForegroundColor(color: .white))
                 Image(systemName: imageSystemName)
                     .font(.system(size: imageSize, weight: imageWeight))
                     .padding()
-                    .modifier(ForegroundColor(color: .gray))
+                    .modifier(ForegroundColor(color: imageColor))
             }
         })
     }
 }
 
 #Preview {
-    MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold) {
+    MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImageGray) {
         print("Button tapped")
     }
 }

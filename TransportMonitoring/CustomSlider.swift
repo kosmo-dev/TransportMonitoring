@@ -22,36 +22,36 @@ struct CustomSlider: View {
                 HStack {
                     Text("65км/ч")
                         .offset(x: xOffset)
-                        .modifier(ForegroundColor(color: .gray))
+                        .modifier(ForegroundColor(color: .spGray2))
                     Spacer()
                 }
                 ZStack {
                     HStack(spacing: -2, content: {
                         Circle()
                             .frame(height: 6)
-                            .modifier(ForegroundColor(color: .blue))
+                            .modifier(ForegroundColor(color: .spBlue))
                         HStack(spacing: 0, content: {
                             Rectangle()
                                 .frame(width: $sliderValue.wrappedValue.map(from: 0...100, to: 0...(geometry.size.width - self.thumbSize - self.sliderPadding * 2)), height: 3)
-                                .modifier(ForegroundColor(color: .blue))
+                                .modifier(ForegroundColor(color: .spBlue))
                             Rectangle()
                                 .frame(height: 3)
-                                .modifier(ForegroundColor(color: .gray))
+                                .modifier(ForegroundColor(color: .spGray))
                         })
                         Circle()
                             .frame(height: 6)
-                            .modifier(ForegroundColor(color: .gray))
+                            .modifier(ForegroundColor(color: .spGray))
                     })
 
                     HStack {
 
                         Circle()
                             .frame(height: self.thumbSize)
-                            .modifier(ForegroundColor(color: .blue))
+                            .modifier(ForegroundColor(color: .spBlue))
                             .overlay(
                                 Circle()
                                     .stroke(lineWidth: 2)
-                                    .modifier(ForegroundColor(color: .black))
+                                    .modifier(ForegroundColor(color: .white))
                             )
                             .offset(x: xOffset)
                             .gesture(
