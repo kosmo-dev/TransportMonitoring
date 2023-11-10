@@ -11,6 +11,8 @@
 		3D2507A32AFE6391008835E5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507A22AFE6391008835E5 /* MainView.swift */; };
 		3D2507A52AFE6392008835E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2507A42AFE6392008835E5 /* Assets.xcassets */; };
 		3D2507A82AFE6392008835E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2507A72AFE6392008835E5 /* Preview Assets.xcassets */; };
+		3D2507AF2AFE7323008835E5 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507AE2AFE7323008835E5 /* MapView.swift */; };
+		3D2507B12AFE75C5008835E5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B02AFE75C5008835E5 /* MapViewController.swift */; };
 		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +22,8 @@
 		3D2507A22AFE6391008835E5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3D2507A42AFE6392008835E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D2507A72AFE6392008835E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3D2507AE2AFE7323008835E5 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		3D2507B02AFE75C5008835E5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 			children = (
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
 				3D2507A22AFE6391008835E5 /* MainView.swift */,
+				3D2507AE2AFE7323008835E5 /* MapView.swift */,
+				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
 				3D2507A42AFE6392008835E5 /* Assets.xcassets */,
 				3D2507A62AFE6392008835E5 /* Preview Content */,
 			);
@@ -206,7 +212,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2507A32AFE6391008835E5 /* MainView.swift in Sources */,
+				3D2507AF2AFE7323008835E5 /* MapView.swift in Sources */,
 				3D2507A12AFE6391008835E5 /* TransportMonitoringApp.swift in Sources */,
+				3D2507B12AFE75C5008835E5 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +351,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TransportMonitoring/Preview Content\"";
 				DEVELOPMENT_TEAM = WEZ4D5M6R9;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -377,6 +386,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TransportMonitoring/Preview Content\"";
 				DEVELOPMENT_TEAM = WEZ4D5M6R9;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
