@@ -23,51 +23,11 @@ struct MainView: View {
                         Spacer()
                         VStack {
                             Spacer()
-                            Button(action: {}, label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .frame(width: 45, height: 45)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.black, lineWidth: 0.5)
-                                        )
-                                        .modifier(ForegroundColor(color: .white))
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 23, weight: .bold))
-                                        .padding()
-                                        .modifier(ForegroundColor(color: .gray))
-                                }
-                            })
-                            Button(action: {}, label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .frame(width: 45, height: 45)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.black, lineWidth: 0.5)
-                                        )
-                                        .modifier(ForegroundColor(color: .white))
-                                    Image(systemName: "minus")
-                                        .font(.system(size: 23, weight: .bold))
-                                        .padding()
-                                        .modifier(ForegroundColor(color: .gray))
-                                }
-                            })
                             Spacer()
-                            Button(action: {}, label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .frame(width: 45, height: 45)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.black, lineWidth: 0.5)
-                                        )
-                                        .modifier(ForegroundColor(color: .white))
-                                    Image(systemName: "eye")
-                                        .padding()
-                                        .modifier(ForegroundColor(color: .gray))
-                                }
-                            })
+                            MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold) {}
+                            MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold) {}
+                            Spacer()
+                            MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular) {}
                         }
                     }
                     .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
