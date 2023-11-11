@@ -23,7 +23,7 @@ struct TransportMonitoringApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView(sliderValue: 3)
+            MainView().environmentObject(MainStore(initialState: MainState(playButtonIsOn: false)))
         }
     }
 }

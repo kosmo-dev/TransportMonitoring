@@ -19,6 +19,7 @@
 		3D2507BA2AFEC03F008835E5 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B92AFEC03F008835E5 /* Color+Extension.swift */; };
 		3D2507BC2AFECB0D008835E5 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507BB2AFECB0D008835E5 /* VisualEffectView.swift */; };
 		3D2507BE2AFED0BD008835E5 /* MapDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */; };
+		3D2507CB2AFFAA0B008835E5 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507CA2AFFAA0B008835E5 /* MainStore.swift */; };
 		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		3D2507B92AFEC03F008835E5 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		3D2507BB2AFECB0D008835E5 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDescriptionView.swift; sourceTree = "<group>"; };
+		3D2507CA2AFFAA0B008835E5 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
 		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
 				3D2507A22AFE6391008835E5 /* MainView.swift */,
+				3D2507CA2AFFAA0B008835E5 /* MainStore.swift */,
 				3D2507AE2AFE7323008835E5 /* MapView.swift */,
 				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
 				3D2507B22AFE87F4008835E5 /* ForegroundColor.swift */,
@@ -247,6 +250,7 @@
 				3D2507A12AFE6391008835E5 /* TransportMonitoringApp.swift in Sources */,
 				3D2507B12AFE75C5008835E5 /* MapViewController.swift in Sources */,
 				3D2507BA2AFEC03F008835E5 /* Color+Extension.swift in Sources */,
+				3D2507CB2AFFAA0B008835E5 /* MainStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

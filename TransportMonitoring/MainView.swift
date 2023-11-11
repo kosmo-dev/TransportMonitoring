@@ -8,26 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var currentSpeed: Float = 0
-    @State var sliderValue: CGFloat
-    @State var playButtonIsOn = false
-    @State var forwardModifier: ForwardModifier = .x1
-    @State var mapDescriptionIsAppeared = false
-
-    func forwardModifierTapped() {
-        switch forwardModifier {
-        case .x1:
-            forwardModifier = .x4
-        case .x4:
-            forwardModifier = .x8
-        case .x8:
-            forwardModifier = .x1
-        }
-    }
-
-    func showLegend() {
-
-    }
+    @EnvironmentObject var store: MainStore
 
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +17,7 @@ struct MainView: View {
                     ZStack {
                         Rectangle()
                             .modifier(ForegroundColor(color: .gray))
-    //                    MapView()
+                        //                    MapView()
                         HStack {
                             Spacer()
                             VStack {
@@ -58,81 +39,94 @@ struct MainView: View {
                     ZStack {
                         VisualEffectView(effect: UIBlurEffect(style: .systemMaterialLight))
                         VStack(spacing: 16, content: {
-                                HStack {
-                                    Text("Бензовоз")
-                                        .font(.system(size: 20, weight: .semibold))
-                                        .modifier(ForegroundColor(color: .spLabelBlack))
-                                    Spacer()
-                                }
-                                HStack {
-                                    Image(systemName: "calendar")
-                                        .modifier(ForegroundColor(color: .spImageGray))
-                                    Text("16.08.2023 - 16.08.2023")
-                                        .font(.system(size: 12))
-                                        .modifier(ForegroundColor(color: .spLabelBlack))
-                                        .lineLimit(0)
-                                    Spacer()
-                                    Image(systemName: "map")
-                                        .modifier(ForegroundColor(color: .spImageGray))
-                                    Text("10 км")
-                                        .font(.system(size: 12))
-                                        .modifier(ForegroundColor(color: .spLabelBlack))
-                                    Spacer()
-                                    Image(systemName: "speedometer")
-                                        .modifier(ForegroundColor(color: .spImageGray))
-                                    Text("До 98 км/ч")
-                                        .font(.system(size: 12))
-                                        .modifier(ForegroundColor(color: .spLabelBlack))
-                                }
-                                CustomSlider(sliderValue: $sliderValue)
-                                    .frame(minHeight: 30, idealHeight: 50, maxHeight: 60)
-                                HStack {
-                                    Button(action: {
-                                        forwardModifierTapped()
-                                    }, label: {
-                                        Text("\(forwardModifier.rawValue)x")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .modifier(ForegroundColor(color: .spBlue))
-                                    })
-                                    .frame(width: 36)
-                                    Spacer()
-                                    Button(action: {
-                                        playButtonIsOn.toggle()
-                                    }, label: {
-                                        Image(systemName: playButtonIsOn ? "pause.fill" : "play.fill")
-                                            .font(.system(size: 36))
-                                            .modifier(ForegroundColor(color: .spBlue))
-                                    })
-                                    .frame(height: 40)
-                                    Spacer()
-                                    Button(action: {
-                                        mapDescriptionIsAppeared.toggle()
-                                    }, label: {
-                                        Image(systemName: mapDescriptionIsAppeared ? "info.circle.fill" : "info.circle")
-                                            .modifier(ForegroundColor(color: .spBlue))
-                                    })
-                                    .frame(width: 44)
-                                }
-                            })
+                            HStack {
+                                Text("Бензовоз")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .modifier(ForegroundColor(color: .spLabelBlack))
+                                Spacer()
+                            }
+                            HStack {
+                                Image(systemName: "calendar")
+                                    .modifier(ForegroundColor(color: .spImageGray))
+                                Text("16.08.2023 - 16.08.2023")
+                                    .font(.system(size: 12))
+                                    .modifier(ForegroundColor(color: .spLabelBlack))
+                                    .lineLimit(0)
+                                Spacer()
+                                Image(systemName: "map")
+                                    .modifier(ForegroundColor(color: .spImageGray))
+                                Text("10 км")
+                                    .font(.system(size: 12))
+                                    .modifier(ForegroundColor(color: .spLabelBlack))
+                                Spacer()
+                                Image(systemName: "speedometer")
+                                    .modifier(ForegroundColor(color: .spImageGray))
+                                Text("До 98 км/ч")
+                                    .font(.system(size: 12))
+                                    .modifier(ForegroundColor(color: .spLabelBlack))
+                            }
+                            CustomSlider(sliderValue:
+                                            Binding(get: { store.state.sliderValue },
+                                                    set: { store.send(.setSliderValue($0)) }
+                                                   )
+                            )
+                            .frame(minHeight: 30, idealHeight: 50, maxHeight: 60)
+                            HStack {
+                                Button(action: {
+                                    store.send(.forwardButtonTapped)
+                                }, label: {
+                                    Text("\(store.state.forwardModifier.rawValue)x")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .modifier(ForegroundColor(color: .spBlue))
+                                })
+                                .frame(width: 36)
+                                Spacer()
+                                Button(action: {
+                                    store.send(.playButtonTapped)
+                                }, label: {
+                                    Image(systemName: store.state.playButtonIsOn ? "pause.fill" : "play.fill")
+                                        .font(.system(size: 36))
+                                        .modifier(ForegroundColor(color: .spBlue))
+                                })
+                                .frame(height: 40)
+                                Spacer()
+                                Button(action: {
+                                    store.send(.mapDescriptionTapped)
+                                }, label: {
+                                    Image(systemName: store.state.showMapDescription ? "info.circle.fill" : "info.circle")
+                                        .modifier(ForegroundColor(color: .spBlue))
+                                })
+                                .frame(width: 44)
+                            }
+                        })
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
-                        }
-                        .ignoresSafeArea()
+                    }
+                    .ignoresSafeArea()
                 })
-                if mapDescriptionIsAppeared {
-                    MapDescriptionView(viewIsAppeared: $mapDescriptionIsAppeared)
+                if store.state.showMapDescription {
+                    MapDescriptionView(viewIsAppeared:
+                                        Binding(get: { store.state.showMapDescription },
+                                                set: { _ in store.send(.mapDescriptionTapped) })
+                    )
+                }
+                if store.state.showLoadingIndicator {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .modifier(ForegroundColor(color: .white))
+                        ProgressView() {
+                            Text("Loading")
+                        }
+                    }
+                    .frame(width: 100, height: 100)
                 }
             }
-            
         }
+        .onAppear(perform: {
+            store.send(.showLoadingIndicator(true))
+        })
     }
 }
 
 #Preview {
-    MainView(sliderValue: 0)
-}
-
-enum ForwardModifier: Int {
-    case x1 = 1
-    case x4 = 4
-    case x8 = 8
+    return MainView().environmentObject(MainStore(initialState: MainState(playButtonIsOn: false)))
 }
