@@ -17,16 +17,20 @@ struct MainView: View {
                     ZStack {
                         Rectangle()
                             .modifier(ForegroundColor(color: .gray))
-                        //                    MapView()
+//                        MapView(polyline: Binding(get: { store.state.polyline }, set: { _ in }))
                         HStack {
                             Spacer()
                             VStack {
                                 Spacer()
                                 Spacer()
-                                MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {}
+                                MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
+                                    
+                                }
                                 MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {}
                                 Spacer()
-                                MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {}
+                                MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {
+                                    store.send(.setPolyline)
+                                }
                             }
                         }
                         .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
@@ -122,7 +126,7 @@ struct MainView: View {
             }
         }
         .onAppear(perform: {
-            store.send(.showLoadingIndicator(true))
+//            store.send(.showLoadingIndicator(false))
         })
     }
 }

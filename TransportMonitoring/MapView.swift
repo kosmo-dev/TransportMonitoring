@@ -9,13 +9,16 @@ import SwiftUI
 import GoogleMaps
 
 struct MapView: UIViewControllerRepresentable {
+    @Binding var polyline: GMSPolyline
 
-    func makeUIViewController(context: Context) -> some UIViewController {
+    typealias UIViewControllerType = MapViewController
+
+    func makeUIViewController(context: Context) -> MapViewController {
         return MapViewController()
     }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-
+    
+    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
+        polyline.map = uiViewController.map
     }
 }
 

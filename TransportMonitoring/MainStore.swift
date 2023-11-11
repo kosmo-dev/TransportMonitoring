@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import GoogleMaps
 
 struct MainState {
     var sliderValue: CGFloat = 0
@@ -14,6 +15,7 @@ struct MainState {
     var forwardModifier: ForwardModifier = .x1
     var showMapDescription = false
     var showLoadingIndicator = false
+    var polyline: GMSPolyline = GMSPolyline()
 
     enum ForwardModifier: Int {
         case x1 = 1
@@ -37,6 +39,7 @@ final class MainStore: ObservableObject {
         case mapDescriptionTapped
         case setSliderValue(CGFloat)
         case showLoadingIndicator(Bool)
+        case setPolyline
     }
 
     func send(_ action: Action) {
@@ -66,7 +69,10 @@ final class MainStore: ObservableObject {
             state.sliderValue = value
             return nil
         case let .showLoadingIndicator(show):
-            state.showLoadingIndicator = show
+//            state.showLoadingIndicator = show
+            return nil
+        case .setPolyline:
+            state.polyline = makeMockPolyline()
             return nil
         }
     }
@@ -80,5 +86,19 @@ final class MainStore: ObservableObject {
         case .x8:
             return .x1
         }
+    }
+
+    func makeMockPolyline() -> GMSPolyline {
+        let path = GMSMutablePath()
+        path.add(CLLocationCoordinate2D(latitude: 55.651365, longitude: 37.610225))
+        path.add(CLLocationCoordinate2D(latitude: 55.6531333333333, longitude: 37.6128816666667))
+        path.add(CLLocationCoordinate2D(latitude: 55.781505, longitude: 37.5999216666667))
+        path.add(CLLocationCoordinate2D(latitude: 55.8070533333333, longitude: 37.5814233333333))
+        path.add(CLLocationCoordinate2D(latitude: 55.7473433333333, longitude: 37.58251))
+        path.add(CLLocationCoordinate2D(latitude: 55.8056216666667, longitude: 37.571535))
+        path.add(CLLocationCoordinate2D(latitude: 55.8190983333333, longitude: 37.5746533333333))
+        path.add(CLLocationCoordinate2D(latitude: 55.80008, longitude: 37.58368))
+        path.add(CLLocationCoordinate2D(latitude: 55.78637, longitude: 37.5947966666667))
+        return GMSPolyline(path: path)
     }
 }
