@@ -15,4 +15,7 @@ extension Color {
     static let spBlue = Color(red: 70/255, green: 147/255, blue: 236/255)
     static let spGray = Color(red: 180/255, green: 186/255, blue: 207/255)
     static let spGray2 = Color(red: 156/255, green: 163/255, blue: 188/255)
+    static let spDarkBlue = Color(red: 65/255, green: 101/255, blue: 143/255)
+    static let spYellow = Color(red: 255/255, green: 221/255, blue: 54/255)
+    static let spRed = Color(red: 211/255, green: 49/255, blue: 47/255)
 }
