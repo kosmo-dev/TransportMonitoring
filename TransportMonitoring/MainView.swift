@@ -15,21 +15,21 @@ struct MainView: View {
             ZStack {
                 VStack(spacing: 0, content: {
                     ZStack {
-                        Rectangle()
-                            .modifier(ForegroundColor(color: .gray))
-//                        MapView(polyline: Binding(get: { store.state.polyline }, set: { _ in }))
+//                        Rectangle()
+//                            .modifier(ForegroundColor(color: .gray))
+                        MapView(polyline: Binding(get: { store.state.polyline }, set: { _ in }))
                         HStack {
                             Spacer()
                             VStack {
                                 Spacer()
                                 Spacer()
                                 MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
-                                    
+                                    store.send(.zoomInTapped)
                                 }
                                 MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {}
                                 Spacer()
                                 MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {
-                                    store.send(.setPolyline)
+                                    store.send(.makeRequest)
                                 }
                             }
                         }

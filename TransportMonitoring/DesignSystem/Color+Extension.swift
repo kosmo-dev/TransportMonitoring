@@ -19,3 +19,9 @@ extension Color {
     static let spYellow = Color(red: 255/255, green: 221/255, blue: 54/255)
     static let spRed = Color(red: 211/255, green: 49/255, blue: 47/255)
 }
+
+extension UIColor {
+    static let spDarkBlue = UIColor(red: 65/255, green: 101/255, blue: 143/255, alpha: 1)
+    static let spYellow = UIColor(red: 255/255, green: 221/255, blue: 54/255, alpha: 1)
+    static let spRed = UIColor(red: 211/255, green: 49/255, blue: 47/255, alpha: 1)
+}

@@ -29,6 +29,9 @@ final class MainStore: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
 
+    let client = NetworkClient()
+    
+
     init(initialState: MainState) {
         self.state = initialState
     }
@@ -39,7 +42,9 @@ final class MainStore: ObservableObject {
         case mapDescriptionTapped
         case setSliderValue(CGFloat)
         case showLoadingIndicator(Bool)
-        case setPolyline
+        case setPolyline(GMSPolyline)
+        case makeRequest
+        case zoomInTapped
     }
 
     func send(_ action: Action) {
@@ -71,8 +76,116 @@ final class MainStore: ObservableObject {
         case let .showLoadingIndicator(show):
 //            state.showLoadingIndicator = show
             return nil
-        case .setPolyline:
-            state.polyline = makeMockPolyline()
+        case let .setPolyline(polyline):
+            state.polyline = polyline
+            return nil
+        case .makeRequest:
+            return client.send([Location].self, request: RouteRequest())
+                .receive(on: DispatchQueue.main)
+                .map { data in
+                    var locations: [[RouteElement]] = []
+                    print(data)
+                    do {
+                        locations = try JSONDecoder().decode(Route.self, from: data)
+                    } catch {
+                        print("error in decoding")
+                    }
+
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+                    let path = GMSMutablePath()
+                    var distance: Double = 0
+                    var previous: Location? = nil
+                    var route: [Track] = []
+                    var colors: [GMSStyleSpan] = []
+
+                    let blueColor = GMSStrokeStyle.solidColor(.spDarkBlue)
+                    let yellowColor = GMSStrokeStyle.solidColor(.spYellow)
+                    let redColor = GMSStrokeStyle.solidColor(.spRed)
+
+                    let blueSpan = GMSStyleSpan(style: blueColor)
+                    let yellowSpan = GMSStyleSpan(style: yellowColor)
+                    let redSpan = GMSStyleSpan(style: redColor)
+
+                    var previousColor = blueColor
+                    var previousCounter = 0
+
+                    for location in locations {
+
+                        var latitude = CLLocationDegrees()
+                        var longitude = CLLocationDegrees()
+                        var date = Date()
+
+                        var counter = 0
+                        for element in location {
+                            switch element {
+                            case .double(let double):
+                                counter += 1
+                                if counter == 1 {
+                                    latitude = double
+                                } else {
+                                    longitude = double
+                                }
+                            case .string(let string):
+                                counter = 0
+                                if let decodedDate = dateFormatter.date(from: string) {
+                                    date = decodedDate
+                                }
+                            }
+                        }
+                        if let _previous = previous {
+                            let distanceBetween2 = self.haversine(lat1: _previous.latitude, lon1: _previous.longitude, lat2: latitude, lon2: longitude)
+
+                            let seconds = date.timeIntervalSince(_previous.timestamp)
+                            let meters = distanceBetween2 * 1000
+                            let velocity = meters / seconds * 3.6
+                            let acceleration = meters / ( seconds * seconds )
+
+                            if acceleration < 5.55 {
+                                route.append(Track(lastLocation: Location(timestamp: date, latitude: latitude, longitude: longitude), meters: meters, velocity: velocity, acceleration: acceleration))
+                                distance += distanceBetween2
+                                path.add(CLLocationCoordinate2D(latitude: longitude, longitude: latitude))
+
+                                switch velocity {
+                                case 0...70:
+                                    if previousColor == blueColor {
+                                        previousCounter += 1
+                                    } else {
+                                        colors.append(GMSStyleSpan(style: previousColor, segments: Double(previousCounter)))
+                                        previousColor = blueColor
+                                        previousCounter = 1
+                                    }
+                                case 71...90:
+                                    if previousColor == yellowColor {
+                                        previousCounter += 1
+                                    } else {
+                                        colors.append(GMSStyleSpan(style: previousColor, segments: Double(previousCounter)))
+                                        previousColor = yellowColor
+                                        previousCounter = 1
+                                    }
+                                default:
+                                    if previousColor == redColor {
+                                        previousCounter += 1
+                                    } else {
+                                        colors.append(GMSStyleSpan(style: previousColor, segments: Double(previousCounter)))
+                                        previousColor = redColor
+                                        previousCounter = 1
+                                    }
+                                }
+                            }
+                        }
+                        previous = Location(timestamp: date, latitude: latitude, longitude: longitude)
+                    }
+                    let polyline = GMSPolyline(path: path)
+                    polyline.spans = colors
+                    polyline.strokeWidth = 2
+                    return polyline
+                }
+                .map { Action.setPolyline($0) }
+                .eraseToAnyPublisher()
+        case .zoomInTapped:
+            print(haversine(lat1: 55.84437, lon1: 37.20274, lat2: 55.845235, lon2: 37.198992))
             return nil
         }
     }
@@ -88,17 +201,26 @@ final class MainStore: ObservableObject {
         }
     }
 
-    func makeMockPolyline() -> GMSPolyline {
-        let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: 55.651365, longitude: 37.610225))
-        path.add(CLLocationCoordinate2D(latitude: 55.6531333333333, longitude: 37.6128816666667))
-        path.add(CLLocationCoordinate2D(latitude: 55.781505, longitude: 37.5999216666667))
-        path.add(CLLocationCoordinate2D(latitude: 55.8070533333333, longitude: 37.5814233333333))
-        path.add(CLLocationCoordinate2D(latitude: 55.7473433333333, longitude: 37.58251))
-        path.add(CLLocationCoordinate2D(latitude: 55.8056216666667, longitude: 37.571535))
-        path.add(CLLocationCoordinate2D(latitude: 55.8190983333333, longitude: 37.5746533333333))
-        path.add(CLLocationCoordinate2D(latitude: 55.80008, longitude: 37.58368))
-        path.add(CLLocationCoordinate2D(latitude: 55.78637, longitude: 37.5947966666667))
-        return GMSPolyline(path: path)
+    private func haversine(lat1: Double, lon1: Double, lat2: Double, lon2: Double) -> Double {
+        let R = 6371.0  // Earth's radius in kilometers
+
+        // Convert latitude and longitude from degrees to radians
+        let lat1Rad = lat1 * .pi / 180.0
+        let lon1Rad = lon1 * .pi / 180.0
+        let lat2Rad = lat2 * .pi / 180.0
+        let lon2Rad = lon2 * .pi / 180.0
+
+        // Differences in coordinates
+        let dlat = lat2Rad - lat1Rad
+        let dlon = lon2Rad - lon1Rad
+
+        // Haversine formula
+        let a = sin(dlat / 2.0) * sin(dlat / 2.0) + cos(lat1Rad) * cos(lat2Rad) * sin(dlon / 2.0) * sin(dlon / 2.0)
+        let c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a))
+
+        // Distance in kilometers
+        let distance = R * c
+
+        return distance
     }
 }
