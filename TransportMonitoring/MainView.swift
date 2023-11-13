@@ -23,7 +23,8 @@ struct MainView: View {
                             cameraUpdate: Binding(get: { store.state.cameraUpdate }, set: { _ in }), 
                             route: Binding(get: { store.state.route }, set: { _ in }),
                             startRouteAnimation: Binding(get: { store.state.startRouteAnimation }, set: { _ in }), 
-                            stopAnimation: Binding(get: { store.state.stopRouteAnimation }, set: { _ in })
+                            stopAnimation: Binding(get: { store.state.stopRouteAnimation }, set: { _ in }), 
+                            forwardModifier: Binding(get: { store.state.forwardModifier }, set: { _ in })
                         )
                         HStack {
                             Spacer()

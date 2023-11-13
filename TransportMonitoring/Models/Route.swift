@@ -54,4 +54,10 @@ enum RouteElement: Codable {
     }
 }
 
+enum ForwardModifier: Double {
+    case x1 = 1
+    case x4 = 4
+    case x8 = 8
+}
+
 typealias Route = [[RouteElement]]

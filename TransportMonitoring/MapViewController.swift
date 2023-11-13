@@ -18,6 +18,8 @@ final class MapViewController: UIViewController {
     var marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346))
     var animationStarted = false
     var stopAnimationCalled = false
+    var locationCounter: Int?
+    var animationSpeed: ForwardModifier = .x1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,7 @@ final class MapViewController: UIViewController {
         if let map {
             self.view.addSubview(map)
         }
+        marker.icon = UIImage(named: "marker")
         marker.map = map
     }
 
@@ -53,7 +56,7 @@ final class MapViewController: UIViewController {
 
     func setMarkerLocation(location: CLLocationCoordinate2D, completion: @escaping () -> Void) {
         CATransaction.begin()
-        CATransaction.setAnimationDuration(0.5)
+        CATransaction.setAnimationDuration(1/animationSpeed.rawValue)
         CATransaction.setCompletionBlock {
             completion()
         }
@@ -66,6 +69,11 @@ final class MapViewController: UIViewController {
         stopAnimationCalled = true
     }
 
+    func setAnimationSpeed(_ forwardModifier: ForwardModifier) {
+        guard animationSpeed != forwardModifier else { return }
+        animationSpeed = forwardModifier
+    }
+
     func startRoute(route: [Track]) {
         guard !animationStarted else { return }
         print("start route")
@@ -73,12 +81,16 @@ final class MapViewController: UIViewController {
         if route.count > 20 {
             Task {
                 var counter = 0
-                while counter < 120 {
+                if let locationCounter {
+                    counter = locationCounter
+                }
+                while counter < route.count - 1 {
                     if stopAnimationCalled {
                         break
                     }
                     await withCheckedContinuation { continuation in
                         let coordinates = CLLocationCoordinate2D(latitude: route[counter].lastLocation.longitude, longitude: route[counter].lastLocation.latitude)
+
                         setMarkerLocation(location: coordinates) {
                             counter += 1
                             continuation.resume()
@@ -86,6 +98,7 @@ final class MapViewController: UIViewController {
                     }
                 }
                 print("finish animation")
+                locationCounter = counter
                 animationStarted = false
                 stopAnimationCalled = false
             }

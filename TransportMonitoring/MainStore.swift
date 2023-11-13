@@ -23,12 +23,6 @@ struct MainState {
     var markerLocation = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
     var startRouteAnimation = false
     var stopRouteAnimation = false
-
-    enum ForwardModifier: Int {
-        case x1 = 1
-        case x4 = 4
-        case x8 = 8
-    }
 }
 
 final class MainStore: ObservableObject {
@@ -218,7 +212,7 @@ final class MainStore: ObservableObject {
         }
     }
 
-    private func forwardModifierTapped(_ forwardModifier: MainState.ForwardModifier) -> MainState.ForwardModifier {
+    private func forwardModifierTapped(_ forwardModifier: ForwardModifier) -> ForwardModifier {
         switch forwardModifier {
         case .x1:
             return .x4
