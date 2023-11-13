@@ -15,7 +15,14 @@ struct MainState {
     var forwardModifier: ForwardModifier = .x1
     var showMapDescription = false
     var showLoadingIndicator = false
-    var polyline: GMSPolyline = GMSPolyline()
+    var polyline: PolylineIdentifiable = PolylineIdentifiable(id: UUID(), polyline: GMSPolyline())
+    var zoom: Float = 15
+    var coordinates: [Track] = []
+    var route: [Track] = []
+    var cameraUpdate = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
+    var markerLocation = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
+    var startRouteAnimation = false
+    var stopRouteAnimation = false
 
     enum ForwardModifier: Int {
         case x1 = 1
@@ -42,9 +49,11 @@ final class MainStore: ObservableObject {
         case mapDescriptionTapped
         case setSliderValue(CGFloat)
         case showLoadingIndicator(Bool)
-        case setPolyline(GMSPolyline)
+        case setRoute(polyline: GMSPolyline, route: [Track])
         case makeRequest
         case zoomInTapped
+        case zoomOutTapped
+        case followButtonTapped
     }
 
     func send(_ action: Action) {
@@ -63,6 +72,15 @@ final class MainStore: ObservableObject {
         switch action {
         case .playButtonTapped:
             state.playButtonIsOn.toggle()
+            state.markerLocation = CLLocationCoordinate2D(latitude: state.coordinates[2].lastLocation.longitude, longitude: state.coordinates[2].lastLocation.latitude)
+            state.route = state.coordinates
+            if state.startRouteAnimation == false {
+                state.startRouteAnimation = true
+                state.stopRouteAnimation = false
+            } else {
+                state.stopRouteAnimation = true
+                state.startRouteAnimation = false
+            }
             return nil
         case .forwardButtonTapped:
             state.forwardModifier = forwardModifierTapped(state.forwardModifier)
@@ -74,10 +92,15 @@ final class MainStore: ObservableObject {
             state.sliderValue = value
             return nil
         case let .showLoadingIndicator(show):
-//            state.showLoadingIndicator = show
+            //            state.showLoadingIndicator = show
             return nil
-        case let .setPolyline(polyline):
-            state.polyline = polyline
+        case .followButtonTapped:
+            state.zoom = 18
+            state.cameraUpdate = CLLocationCoordinate2D(latitude: state.coordinates[2].lastLocation.longitude, longitude: state.coordinates[2].lastLocation.latitude)
+            return nil
+        case let .setRoute(polyline: polyline, route: route):
+            state.polyline = PolylineIdentifiable(id: UUID(), polyline: polyline)
+            state.coordinates = route
             return nil
         case .makeRequest:
             return client.send([Location].self, request: RouteRequest())
@@ -180,12 +203,17 @@ final class MainStore: ObservableObject {
                     let polyline = GMSPolyline(path: path)
                     polyline.spans = colors
                     polyline.strokeWidth = 2
-                    return polyline
+                    return (polyline, route)
                 }
-                .map { Action.setPolyline($0) }
+                .map({ (polyline, route) in
+                    Action.setRoute(polyline: polyline, route: route)
+                })
                 .eraseToAnyPublisher()
         case .zoomInTapped:
-            print(haversine(lat1: 55.84437, lon1: 37.20274, lat2: 55.845235, lon2: 37.198992))
+            state.zoom += 1
+            return nil
+        case .zoomOutTapped:
+            state.zoom -= 1
             return nil
         }
     }

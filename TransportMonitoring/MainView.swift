@@ -17,7 +17,14 @@ struct MainView: View {
                     ZStack {
 //                        Rectangle()
 //                            .modifier(ForegroundColor(color: .gray))
-                        MapView(polyline: Binding(get: { store.state.polyline }, set: { _ in }))
+                        MapView(
+                            polyline: Binding(get: { store.state.polyline }, set: { _ in }),
+                            zoom: Binding(get: { store.state.zoom}, set: { _ in }), 
+                            cameraUpdate: Binding(get: { store.state.cameraUpdate }, set: { _ in }), 
+                            route: Binding(get: { store.state.route }, set: { _ in }),
+                            startRouteAnimation: Binding(get: { store.state.startRouteAnimation }, set: { _ in }), 
+                            stopAnimation: Binding(get: { store.state.stopRouteAnimation }, set: { _ in })
+                        )
                         HStack {
                             Spacer()
                             VStack {
@@ -26,10 +33,12 @@ struct MainView: View {
                                 MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
                                     store.send(.zoomInTapped)
                                 }
-                                MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {}
+                                MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
+                                    store.send(.zoomOutTapped)
+                                }
                                 Spacer()
                                 MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {
-                                    store.send(.makeRequest)
+                                    store.send(.followButtonTapped)
                                 }
                             }
                         }
@@ -127,6 +136,7 @@ struct MainView: View {
         }
         .onAppear(perform: {
 //            store.send(.showLoadingIndicator(false))
+            store.send(.makeRequest)
         })
     }
 }

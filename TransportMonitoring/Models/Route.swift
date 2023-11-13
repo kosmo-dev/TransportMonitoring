@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleMaps
 
 struct Location: Codable {
     var timestamp: Date
@@ -20,7 +21,10 @@ struct Track {
     let acceleration: Double
 }
 
-import Foundation
+struct PolylineIdentifiable {
+    let id: UUID
+    let polyline: GMSPolyline
+}
 
 enum RouteElement: Codable {
     case double(Double)

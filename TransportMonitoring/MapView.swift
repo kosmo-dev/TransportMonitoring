@@ -9,7 +9,12 @@ import SwiftUI
 import GoogleMaps
 
 struct MapView: UIViewControllerRepresentable {
-    @Binding var polyline: GMSPolyline
+    @Binding var polyline: PolylineIdentifiable
+    @Binding var zoom: Float
+    @Binding var cameraUpdate: CLLocationCoordinate2D
+    @Binding var route: [Track]
+    @Binding var startRouteAnimation: Bool
+    @Binding var stopAnimation: Bool
 
     typealias UIViewControllerType = MapViewController
 
@@ -18,7 +23,17 @@ struct MapView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        polyline.map = uiViewController.map
+        uiViewController.setPolyline(polyline: polyline)
+        uiViewController.zoomMapWithAnimation(zoom: zoom)
+        uiViewController.moveMapToLocationWithAnimation(cameraUpdate)
+        print("startRouteAnimation \(startRouteAnimation)")
+        if startRouteAnimation {
+            uiViewController.startRoute(route: route)
+        }
+
+        if stopAnimation {
+            uiViewController.stopAnimation()
+        }
     }
 }
 
