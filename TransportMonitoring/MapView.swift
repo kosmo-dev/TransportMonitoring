@@ -17,18 +17,22 @@ struct MapView: UIViewControllerRepresentable {
     @Binding var stopAnimation: Bool
     @Binding var forwardModifier: ForwardModifier
 
+    @Binding var trackCounter: Int
+    @Binding var store: MainStore
+
     typealias UIViewControllerType = MapViewController
 
     func makeUIViewController(context: Context) -> MapViewController {
-        return MapViewController()
+        return MapViewController(coordinator: context.coordinator)
     }
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
+        print("updateUIViewController called")
         uiViewController.setPolyline(polyline: polyline)
         uiViewController.zoomMapWithAnimation(zoom: zoom)
         uiViewController.moveMapToLocationWithAnimation(cameraUpdate)
-        print("startRouteAnimation \(startRouteAnimation)")
         if startRouteAnimation {
+            print("startRouteAnimation \(startRouteAnimation)")
             uiViewController.startRoute(route: route)
         }
 
@@ -36,6 +40,27 @@ struct MapView: UIViewControllerRepresentable {
             uiViewController.stopAnimation()
         }
         uiViewController.setAnimationSpeed(forwardModifier)
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(trackCounter: trackCounter, store: store)
+    }
+
+    class Coordinator {
+        var trackCounter: Int
+        var store: MainStore
+
+        init(trackCounter: Int, store: MainStore) {
+            self.trackCounter = trackCounter
+            self.store = store
+        }
+
+        func updateTrackCounter(_ counter: Int) {
+            print("coordinator tracker counter \(counter)")
+            store.send(.calculateSliderValue(counter))
+            let velocity = store.state.route[counter].velocity
+            store.send(.setCurrentVelocity(Int(velocity)))
+        }
     }
 }
 

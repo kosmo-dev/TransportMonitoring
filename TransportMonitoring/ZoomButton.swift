@@ -1,5 +1,5 @@
 //
-//  MapButton.swift
+//  ZoomButton.swift
 //  TransportMonitoring
 //
 //  Created by Вадим Кузьмин on 10.11.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MapButton: View {
+struct ZoomButton: View {
     let imageSystemName: String
     let imageSize: CGFloat
     let imageWeight: Font.Weight
@@ -35,7 +35,7 @@ struct MapButton: View {
 }
 
 #Preview {
-    MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImageGray) {
+    ZoomButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImageGray) {
         print("Button tapped")
     }
 }

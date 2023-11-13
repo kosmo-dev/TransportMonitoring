@@ -23,6 +23,9 @@ struct MainState {
     var markerLocation = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
     var startRouteAnimation = false
     var stopRouteAnimation = false
+    var trackCounter = 0
+    var currentVelocity = 0
+    var followTrackIsOn = false
 }
 
 final class MainStore: ObservableObject {
@@ -48,6 +51,8 @@ final class MainStore: ObservableObject {
         case zoomInTapped
         case zoomOutTapped
         case followButtonTapped
+        case calculateSliderValue(Int)
+        case setCurrentVelocity(Int)
     }
 
     func send(_ action: Action) {
@@ -90,11 +95,18 @@ final class MainStore: ObservableObject {
             return nil
         case .followButtonTapped:
             state.zoom = 18
-            state.cameraUpdate = CLLocationCoordinate2D(latitude: state.coordinates[2].lastLocation.longitude, longitude: state.coordinates[2].lastLocation.latitude)
+            state.followTrackIsOn.toggle()
             return nil
         case let .setRoute(polyline: polyline, route: route):
             state.polyline = PolylineIdentifiable(id: UUID(), polyline: polyline)
             state.coordinates = route
+            return nil
+        case let .calculateSliderValue(counter):
+            state.sliderValue = CGFloat(counter) / CGFloat(state.route.count) * 100
+            print("slider: \(state.sliderValue)")
+            return nil
+        case let .setCurrentVelocity(velocity):
+            state.currentVelocity = velocity
             return nil
         case .makeRequest:
             return client.send([Location].self, request: RouteRequest())

@@ -24,21 +24,25 @@ struct MainView: View {
                             route: Binding(get: { store.state.route }, set: { _ in }),
                             startRouteAnimation: Binding(get: { store.state.startRouteAnimation }, set: { _ in }), 
                             stopAnimation: Binding(get: { store.state.stopRouteAnimation }, set: { _ in }), 
-                            forwardModifier: Binding(get: { store.state.forwardModifier }, set: { _ in })
+                            forwardModifier: Binding(get: { store.state.forwardModifier }, set: { _ in }), 
+                            trackCounter: Binding(get: { store.state.trackCounter }, set: { counter in
+                                store.send(.calculateSliderValue(counter))
+                            }), 
+                            store: Binding(get: { store }, set: { _ in })
                         )
                         HStack {
                             Spacer()
                             VStack {
                                 Spacer()
                                 Spacer()
-                                MapButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
+                                ZoomButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
                                     store.send(.zoomInTapped)
                                 }
-                                MapButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
+                                ZoomButton(imageSystemName: "minus", imageSize: 23, imageWeight: .bold, imageColor: .spImagePurple) {
                                     store.send(.zoomOutTapped)
                                 }
                                 Spacer()
-                                MapButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {
+                                ZoomButton(imageSystemName: "eye", imageSize: 17, imageWeight: .regular, imageColor: .spImageGray) {
                                     store.send(.followButtonTapped)
                                 }
                             }
@@ -82,6 +86,10 @@ struct MainView: View {
                             CustomSlider(sliderValue:
                                             Binding(get: { store.state.sliderValue },
                                                     set: { store.send(.setSliderValue($0)) }
+                                                   ), 
+                                         velocity:
+                                            Binding(get: { store.state.currentVelocity },
+                                                    set: { store.send(.setCurrentVelocity($0)) }
                                                    )
                             )
                             .frame(minHeight: 30, idealHeight: 50, maxHeight: 60)
@@ -89,7 +97,7 @@ struct MainView: View {
                                 Button(action: {
                                     store.send(.forwardButtonTapped)
                                 }, label: {
-                                    Text("\(store.state.forwardModifier.rawValue)x")
+                                    Text("\(Int(store.state.forwardModifier.rawValue))x")
                                         .font(.system(size: 16, weight: .semibold))
                                         .modifier(ForegroundColor(color: .spBlue))
                                 })

@@ -9,10 +9,16 @@ import SwiftUI
 
 struct CustomSlider: View {
     @Binding var sliderValue: CGFloat
+    @Binding var velocity: Int
     var thumbSize: CGFloat = 20
 
-    @State private var xOffset: CGFloat = 0
     @State private var lastOffset: CGFloat = 0
+    @State private var geometrySize: CGSize = .zero
+
+    private var xOffset: CGFloat {
+        guard geometrySize != CGSize.zero else { return 0 }
+        return sliderValue.map(from: 0...100, to: 0...(geometrySize.width - self.thumbSize - self.sliderPadding * 2))
+    }
 
     var sliderPadding: CGFloat = 16
 
@@ -20,7 +26,7 @@ struct CustomSlider: View {
         GeometryReader { geometry in
             VStack {
                 HStack {
-                    Text("65км/ч")
+                    Text("\(velocity)км/ч")
                         .offset(x: xOffset)
                         .modifier(ForegroundColor(color: .spGray2))
                     Spacer()
@@ -61,8 +67,6 @@ struct CustomSlider: View {
                                             self.lastOffset = self.xOffset
                                         }
                                         let position = max(0, min( self.lastOffset + value.translation.width, geometry.size.width - self.thumbSize - self.sliderPadding * 2 ))
-                                        self.xOffset = position
-
                                         self.sliderValue = position.map(from: (0...geometry.size.width - self.thumbSize  - self.sliderPadding * 2), to: 1...100)
                                     }
                             )
@@ -72,12 +76,15 @@ struct CustomSlider: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: sliderPadding, bottom: 0, trailing: sliderPadding))
             }
+            .onAppear(perform: {
+                geometrySize = geometry.size
+            })
         }
     }
 }
 
 #Preview {
-    CustomSlider(sliderValue: .constant(0))
+    CustomSlider(sliderValue: .constant(0), velocity: .constant(65))
 }
 
 extension CGFloat {

@@ -10,6 +10,8 @@ import GoogleMaps
 
 final class MapViewController: UIViewController {
 
+    var coordinator: MapView.Coordinator
+
     var map: GMSMapView?
 
     var currentPolylineID: UUID = UUID()
@@ -21,6 +23,15 @@ final class MapViewController: UIViewController {
     var locationCounter: Int?
     var animationSpeed: ForwardModifier = .x1
 
+    init(coordinator: MapView.Coordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let camera = GMSCameraPosition.camera(withLatitude: currentLocation.latitude, longitude: currentLocation.longitude, zoom: currentZoom)
@@ -29,6 +40,7 @@ final class MapViewController: UIViewController {
             self.view.addSubview(map)
         }
         marker.icon = UIImage(named: "marker")
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         marker.map = map
     }
 
@@ -62,6 +74,10 @@ final class MapViewController: UIViewController {
         }
         marker.layer.latitude = location.latitude
         marker.layer.longitude = location.longitude
+        if coordinator.store.state.followTrackIsOn {
+            let cameraUpdate = GMSCameraUpdate.setTarget(location)
+            map?.animate(with: cameraUpdate)
+        }
         CATransaction.commit()
     }
 
@@ -84,15 +100,23 @@ final class MapViewController: UIViewController {
                 if let locationCounter {
                     counter = locationCounter
                 }
+                var previousCoordinate = currentLocation
+
                 while counter < route.count - 1 {
                     if stopAnimationCalled {
                         break
                     }
                     await withCheckedContinuation { continuation in
                         let coordinates = CLLocationCoordinate2D(latitude: route[counter].lastLocation.longitude, longitude: route[counter].lastLocation.latitude)
+                        let rotation = DegreeBearing(A: previousCoordinate, B: coordinates)
 
-                        setMarkerLocation(location: coordinates) {
+                        marker.rotation = rotation
+                        setMarkerLocation(location: coordinates) { [weak self] in
+                            self?.coordinator.store.send(.calculateSliderValue(counter))
+                            let velocity = route[counter].velocity
+                            self?.coordinator.store.send(.setCurrentVelocity(Int(velocity)))
                             counter += 1
+                            previousCoordinate = coordinates
                             continuation.resume()
                         }
                     }
@@ -103,5 +127,26 @@ final class MapViewController: UIViewController {
                 stopAnimationCalled = false
             }
         }
+    }
+
+    private func DegreeBearing(A: CLLocationCoordinate2D, B: CLLocationCoordinate2D) -> Double {
+        var dlon = ToRad(degrees: B.longitude - A.longitude)
+        let dPhi = log(tan(ToRad(degrees: B.latitude) / 2 + .pi / 4) / tan(ToRad(degrees: A.latitude) / 2 + .pi / 4))
+        if  abs(dlon) > .pi {
+            dlon = (dlon > 0) ? (dlon - 2 * .pi) : (2 * .pi + dlon)
+        }
+        return self.ToBearing(radians: atan2(dlon, dPhi))
+    }
+
+    private func ToRad(degrees: Double) -> Double {
+        return degrees * ( .pi / 180)
+    }
+
+    private func ToBearing(radians: Double) -> Double {
+        return (ToDegrees(radians: radians) + 360).truncatingRemainder(dividingBy: 360)
+    }
+
+    private func ToDegrees(radians: Double) -> Double{
+        return radians * 180 / .pi
     }
 }
