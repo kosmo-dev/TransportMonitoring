@@ -15,10 +15,21 @@
 		3D2507B12AFE75C5008835E5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B02AFE75C5008835E5 /* MapViewController.swift */; };
 		3D2507B32AFE87F4008835E5 /* ForegroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B22AFE87F4008835E5 /* ForegroundColor.swift */; };
 		3D2507B52AFEA379008835E5 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B42AFEA379008835E5 /* CustomSlider.swift */; };
-		3D2507B72AFEBBBD008835E5 /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B62AFEBBBD008835E5 /* MapButton.swift */; };
+		3D2507B72AFEBBBD008835E5 /* ZoomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B62AFEBBBD008835E5 /* ZoomButton.swift */; };
 		3D2507BA2AFEC03F008835E5 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507B92AFEC03F008835E5 /* Color+Extension.swift */; };
 		3D2507BC2AFECB0D008835E5 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507BB2AFECB0D008835E5 /* VisualEffectView.swift */; };
 		3D2507BE2AFED0BD008835E5 /* MapDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */; };
+		3D2507CB2AFFAA0B008835E5 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507CA2AFFAA0B008835E5 /* MainStore.swift */; };
+		3D2507CE2AFFF395008835E5 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507CD2AFFF395008835E5 /* NetworkClient.swift */; };
+		3D2507D02AFFF39E008835E5 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507CF2AFFF39E008835E5 /* NetworkRequest.swift */; };
+		3D2507D32AFFF45E008835E5 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2507D22AFFF45E008835E5 /* Route.swift */; };
+		3D269E0F2B02CFA900943E2C /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E0E2B02CFA900943E2C /* FollowButton.swift */; };
+		3D269E112B035C1300943E2C /* GeometryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E102B035C1300943E2C /* GeometryService.swift */; };
+		3D269E132B035FB000943E2C /* ForwardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E122B035FB000943E2C /* ForwardModifier.swift */; };
+		3D269E152B035FD000943E2C /* PolylineIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */; };
+		3D269E172B035FF300943E2C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E162B035FF300943E2C /* Track.swift */; };
+		3D269E192B038CB100943E2C /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E182B038CB100943E2C /* BottomView.swift */; };
+		3DB9D3F82B0394E4007F60EA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9D3F72B0394E4007F60EA /* APIKey.swift */; };
 		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,10 +43,21 @@
 		3D2507B02AFE75C5008835E5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3D2507B22AFE87F4008835E5 /* ForegroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundColor.swift; sourceTree = "<group>"; };
 		3D2507B42AFEA379008835E5 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		3D2507B62AFEBBBD008835E5 /* MapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
+		3D2507B62AFEBBBD008835E5 /* ZoomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomButton.swift; sourceTree = "<group>"; };
 		3D2507B92AFEC03F008835E5 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		3D2507BB2AFECB0D008835E5 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDescriptionView.swift; sourceTree = "<group>"; };
+		3D2507CA2AFFAA0B008835E5 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
+		3D2507CD2AFFF395008835E5 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		3D2507CF2AFFF39E008835E5 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		3D2507D22AFFF45E008835E5 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		3D269E0E2B02CFA900943E2C /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
+		3D269E102B035C1300943E2C /* GeometryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryService.swift; sourceTree = "<group>"; };
+		3D269E122B035FB000943E2C /* ForwardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardModifier.swift; sourceTree = "<group>"; };
+		3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineIdentifiable.swift; sourceTree = "<group>"; };
+		3D269E162B035FF300943E2C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		3D269E182B038CB100943E2C /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		3DB9D3F72B0394E4007F60EA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,13 +98,13 @@
 			children = (
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
 				3D2507A22AFE6391008835E5 /* MainView.swift */,
-				3D2507AE2AFE7323008835E5 /* MapView.swift */,
-				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
-				3D2507B22AFE87F4008835E5 /* ForegroundColor.swift */,
-				3D2507B42AFEA379008835E5 /* CustomSlider.swift */,
-				3D2507B62AFEBBBD008835E5 /* MapButton.swift */,
-				3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */,
+				3D2507CA2AFFAA0B008835E5 /* MainStore.swift */,
+				3DB9D3F72B0394E4007F60EA /* APIKey.swift */,
+				3DB9D3F52B038F16007F60EA /* MapView */,
+				3DB9D3F42B038F05007F60EA /* ViewComponents */,
+				3D2507CC2AFFF374008835E5 /* Service */,
 				3D2507B82AFEC029008835E5 /* DesignSystem */,
+				3D2507D12AFFF414008835E5 /* Models */,
 				3D2507A42AFE6392008835E5 /* Assets.xcassets */,
 				3D2507A62AFE6392008835E5 /* Preview Content */,
 			);
@@ -100,10 +122,53 @@
 		3D2507B82AFEC029008835E5 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				3D2507B22AFE87F4008835E5 /* ForegroundColor.swift */,
 				3D2507B92AFEC03F008835E5 /* Color+Extension.swift */,
 				3D2507BB2AFECB0D008835E5 /* VisualEffectView.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		3D2507CC2AFFF374008835E5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507CD2AFFF395008835E5 /* NetworkClient.swift */,
+				3D2507CF2AFFF39E008835E5 /* NetworkRequest.swift */,
+				3D269E102B035C1300943E2C /* GeometryService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3D2507D12AFFF414008835E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507D22AFFF45E008835E5 /* Route.swift */,
+				3D269E122B035FB000943E2C /* ForwardModifier.swift */,
+				3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */,
+				3D269E162B035FF300943E2C /* Track.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3DB9D3F42B038F05007F60EA /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507B42AFEA379008835E5 /* CustomSlider.swift */,
+				3D2507B62AFEBBBD008835E5 /* ZoomButton.swift */,
+				3D269E0E2B02CFA900943E2C /* FollowButton.swift */,
+				3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */,
+				3D269E182B038CB100943E2C /* BottomView.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		3DB9D3F52B038F16007F60EA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507AE2AFE7323008835E5 /* MapView.swift */,
+				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		4ECDD4E4DADB28AF046874DB /* Pods */ = {
@@ -237,16 +302,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D2507B72AFEBBBD008835E5 /* MapButton.swift in Sources */,
+				3D2507D02AFFF39E008835E5 /* NetworkRequest.swift in Sources */,
+				3DB9D3F82B0394E4007F60EA /* APIKey.swift in Sources */,
+				3D2507B72AFEBBBD008835E5 /* ZoomButton.swift in Sources */,
 				3D2507A32AFE6391008835E5 /* MainView.swift in Sources */,
+				3D269E132B035FB000943E2C /* ForwardModifier.swift in Sources */,
+				3D269E172B035FF300943E2C /* Track.swift in Sources */,
 				3D2507BC2AFECB0D008835E5 /* VisualEffectView.swift in Sources */,
+				3D269E152B035FD000943E2C /* PolylineIdentifiable.swift in Sources */,
 				3D2507BE2AFED0BD008835E5 /* MapDescriptionView.swift in Sources */,
+				3D2507D32AFFF45E008835E5 /* Route.swift in Sources */,
 				3D2507B52AFEA379008835E5 /* CustomSlider.swift in Sources */,
 				3D2507AF2AFE7323008835E5 /* MapView.swift in Sources */,
 				3D2507B32AFE87F4008835E5 /* ForegroundColor.swift in Sources */,
 				3D2507A12AFE6391008835E5 /* TransportMonitoringApp.swift in Sources */,
 				3D2507B12AFE75C5008835E5 /* MapViewController.swift in Sources */,
+				3D269E0F2B02CFA900943E2C /* FollowButton.swift in Sources */,
 				3D2507BA2AFEC03F008835E5 /* Color+Extension.swift in Sources */,
+				3D269E112B035C1300943E2C /* GeometryService.swift in Sources */,
+				3D2507CB2AFFAA0B008835E5 /* MainStore.swift in Sources */,
+				3D2507CE2AFFF395008835E5 /* NetworkClient.swift in Sources */,
+				3D269E192B038CB100943E2C /* BottomView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

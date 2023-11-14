@@ -12,13 +12,16 @@ struct MapDescriptionView: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16)
-                .modifier(ForegroundColor(color: .white))
-            VStack {
+            VisualEffectView(effect: UIBlurEffect(style: .systemMaterialLight))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.spBorderPurple, lineWidth: 1)
+                )
+            VStack(spacing: 8, content: {
                 Text("Легенда")
                     .font(.system(size: 20, weight: .semibold))
                     .modifier(ForegroundColor(color: .spLabelBlack))
-                    .padding()
                 VStack(alignment: .leading, content: {
                     Row(color: .spDarkBlue, minValue: 0, maxValue: 70)
                     Row(color: .spYellow, minValue: 70, maxValue: 90)
@@ -32,12 +35,13 @@ struct MapDescriptionView: View {
                 }, label: {
                     Text("Закрыть")
                         .font(.system(size: 16, weight: .semibold))
+                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                 })
-                .padding()
-            }
+            })
         }
         .frame(height: 236)
         .padding()
+        .offset(y: -20)
     }
 }
 
