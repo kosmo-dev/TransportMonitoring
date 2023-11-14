@@ -67,7 +67,7 @@ struct CustomSlider: View {
                                             self.lastOffset = self.xOffset
                                         }
                                         let position = max(0, min( self.lastOffset + value.translation.width, geometry.size.width - self.thumbSize - self.sliderPadding * 2 ))
-                                        self.sliderValue = position.map(from: (0...geometry.size.width - self.thumbSize  - self.sliderPadding * 2), to: 1...100)
+                                        self.sliderValue = position.map(from: (0...geometry.size.width - self.thumbSize  - self.sliderPadding * 2), to: 0...100)
                                     }
                             )
 

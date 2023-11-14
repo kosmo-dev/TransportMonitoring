@@ -19,7 +19,6 @@ struct MainState {
     var zoom: Float = 15
     var coordinates: [Track] = []
     var route: [Track] = []
-    var cameraUpdate = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
     var markerLocation = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
     var startRouteAnimation = false
     var stopRouteAnimation = false
@@ -89,9 +88,18 @@ final class MainStore: ObservableObject {
             return nil
         case let .setSliderValue(value):
             state.sliderValue = value
+            var counter = Int(value / CGFloat(100) * CGFloat(state.coordinates.count))
+            if counter > (state.coordinates.count - 1) {
+                counter = state.coordinates.count - 1
+            }
+            let location = state.coordinates[counter].lastLocation
+            let clLocation = CLLocationCoordinate2D(latitude: location.longitude, longitude: location.latitude)
+            let velocity = state.coordinates[counter].velocity
+            state.markerLocation = clLocation
+            state.currentVelocity = Int(velocity)
             return nil
         case let .showLoadingIndicator(show):
-            //            state.showLoadingIndicator = show
+            state.showLoadingIndicator = show
             return nil
         case .followButtonTapped:
             state.zoom = 18
@@ -100,7 +108,9 @@ final class MainStore: ObservableObject {
         case let .setRoute(polyline: polyline, route: route):
             state.polyline = PolylineIdentifiable(id: UUID(), polyline: polyline)
             state.coordinates = route
-            return nil
+            return Just(())
+                .map { Action.showLoadingIndicator(false) }
+                .eraseToAnyPublisher()
         case let .calculateSliderValue(counter):
             state.sliderValue = CGFloat(counter) / CGFloat(state.route.count) * 100
             print("slider: \(state.sliderValue)")

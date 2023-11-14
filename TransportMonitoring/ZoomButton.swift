@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ZoomButton: View {
     let imageSystemName: String
-    let imageSize: CGFloat
-    let imageWeight: Font.Weight
-    let imageColor: Color
     let action: () -> Void
 
     var body: some View {
@@ -26,16 +23,16 @@ struct ZoomButton: View {
                     )
                     .modifier(ForegroundColor(color: .white))
                 Image(systemName: imageSystemName)
-                    .font(.system(size: imageSize, weight: imageWeight))
+                    .font(.system(size: 23, weight: .bold))
                     .padding()
-                    .modifier(ForegroundColor(color: imageColor))
+                    .modifier(ForegroundColor(color: .spImagePurple))
             }
         })
     }
 }
 
 #Preview {
-    ZoomButton(imageSystemName: "plus", imageSize: 23, imageWeight: .bold, imageColor: .spImageGray) {
+    ZoomButton(imageSystemName: "plus") {
         print("Button tapped")
     }
 }

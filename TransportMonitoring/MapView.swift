@@ -11,7 +11,7 @@ import GoogleMaps
 struct MapView: UIViewControllerRepresentable {
     @Binding var polyline: PolylineIdentifiable
     @Binding var zoom: Float
-    @Binding var cameraUpdate: CLLocationCoordinate2D
+    @Binding var markerLocation: CLLocationCoordinate2D
     @Binding var route: [Track]
     @Binding var startRouteAnimation: Bool
     @Binding var stopAnimation: Bool
@@ -30,7 +30,7 @@ struct MapView: UIViewControllerRepresentable {
         print("updateUIViewController called")
         uiViewController.setPolyline(polyline: polyline)
         uiViewController.zoomMapWithAnimation(zoom: zoom)
-        uiViewController.moveMapToLocationWithAnimation(cameraUpdate)
+//        uiViewController.moveMapToLocationWithAnimation(cameraUpdate)
         if startRouteAnimation {
             print("startRouteAnimation \(startRouteAnimation)")
             uiViewController.startRoute(route: route)
@@ -40,6 +40,7 @@ struct MapView: UIViewControllerRepresentable {
             uiViewController.stopAnimation()
         }
         uiViewController.setAnimationSpeed(forwardModifier)
+        uiViewController.moveMarkerWithoutAnimation(to: markerLocation)
     }
 
     func makeCoordinator() -> Coordinator {

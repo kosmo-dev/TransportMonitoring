@@ -7,10 +7,13 @@
 
 import UIKit
 import GoogleMaps
+import Combine
 
 final class MapViewController: UIViewController {
 
     var coordinator: MapView.Coordinator
+
+    var cancellables: Set<AnyCancellable> = []
 
     var map: GMSMapView?
 
@@ -51,6 +54,13 @@ final class MapViewController: UIViewController {
         print("polyline set")
     }
 
+    func moveMarkerWithoutAnimation(to location: CLLocationCoordinate2D) {
+        if currentLocation.latitude != location.latitude && currentLocation.longitude != location.longitude {
+            marker.position = location
+            currentLocation = location
+        }
+    }
+
 
     func zoomMapWithAnimation(zoom: Float) {
         guard zoom != currentZoom else { return }
@@ -59,12 +69,12 @@ final class MapViewController: UIViewController {
         print("zoom set")
     }
 
-    func moveMapToLocationWithAnimation(_ location: CLLocationCoordinate2D) {
-        guard currentLocation.latitude != location.latitude && currentLocation.longitude != location.longitude else { return }
-        map?.animate(toLocation: location)
-        currentLocation = location
-        print("location set")
-    }
+//    func moveMapToLocationWithAnimation(_ location: CLLocationCoordinate2D) {
+//        guard currentLocation.latitude != location.latitude && currentLocation.longitude != location.longitude else { return }
+//        map?.animate(toLocation: location)
+//        currentLocation = location
+//        print("location set")
+//    }
 
     func setMarkerLocation(location: CLLocationCoordinate2D, completion: @escaping () -> Void) {
         CATransaction.begin()
