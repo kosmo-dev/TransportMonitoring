@@ -24,6 +24,9 @@ struct MainState {
     var trackCounter = 0
     var currentVelocity = 0
     var followTrackIsOn = false
+    var routeDays: String = ""
+    var distance: Int = 0
+    var maxSpeed: Int = 0
 }
 
 final class MainStore: ObservableObject {
@@ -42,7 +45,7 @@ final class MainStore: ObservableObject {
         case mapDescriptionTapped
         case setSliderValue(CGFloat)
         case showLoadingIndicator(Bool)
-        case setRoute(polyline: GMSPolyline, route: [Track])
+        case setRouteParameters(polyline: GMSPolyline, route: [Track], distance: Double, maxSpeed: Double)
         case makeRequest
         case zoomInTapped
         case zoomOutTapped
@@ -84,6 +87,7 @@ final class MainStore: ObservableObject {
             return nil
 
         case let .setSliderValue(value):
+            guard !state.route.isEmpty else { return nil }
             state.sliderValue = value
             var counter = Int(value / CGFloat(100) * CGFloat(state.route.count))
             if counter > (state.route.count - 1) {
@@ -108,9 +112,12 @@ final class MainStore: ObservableObject {
             state.followTrackIsOn.toggle()
             return nil
 
-        case let .setRoute(polyline: polyline, route: route):
+        case let .setRouteParameters(polyline: polyline, route: route, distance: distance, maxSpeed: maxSpeed):
             state.polyline = PolylineIdentifiable(id: UUID(), polyline: polyline)
             state.route = route
+            state.distance = Int(distance)
+            state.maxSpeed = Int(maxSpeed)
+            state.routeDays = calculateRouteDays(route: route)
             return Just(())
                 .map { Action.showLoadingIndicator(false) }
                 .eraseToAnyPublisher()
@@ -128,7 +135,7 @@ final class MainStore: ObservableObject {
             return client.send(request: RouteRequest())
                 .receive(on: DispatchQueue.main)
                 .map { [weak self] data in
-                    guard let self else { return (GMSPolyline(), []) }
+                    guard let self else { return (GMSPolyline(), [], 0, 0) }
                     var locations: [[RouteElement]] = []
                     print(data)
                     do {
@@ -142,10 +149,10 @@ final class MainStore: ObservableObject {
                     let colors = self.polylineColorizer(track: calculation.track)
                     polyline.spans = colors
                     polyline.strokeWidth = 2
-                    return (polyline, calculation.track)
+                    return (polyline, calculation.track, calculation.distance, calculation.maxVelocity)
                 }
-                .map({ (polyline, route) in
-                    Action.setRoute(polyline: polyline, route: route)
+                .map({ (polyline, route, distance, maxVelocity) in
+                    Action.setRouteParameters(polyline: polyline, route: route, distance: distance, maxSpeed: maxVelocity)
                 })
                 .eraseToAnyPublisher()
 
@@ -196,12 +203,13 @@ final class MainStore: ObservableObject {
         return coordinates
     }
 
-    private func physicalCalculation(_ coordinates: [Location]) -> (track: [Track], path: GMSMutablePath, distance: Double) {
+    private func physicalCalculation(_ coordinates: [Location]) -> (track: [Track], path: GMSMutablePath, distance: Double, maxVelocity: Double) {
         var track: [Track] = []
         var previousVelocity: Double = 0
         var previous: Location? = nil
         var distance: Double = 0
         let path = GMSMutablePath()
+        var maxVelocity: Double = 0
 
         for coordinate in coordinates {
             if let _previous = previous {
@@ -212,7 +220,12 @@ final class MainStore: ObservableObject {
                 let velocity = meters / seconds * 3.6
                 let acceleration = (velocity / 3.6 - previousVelocity / 3.6) / seconds
 
-                if acceleration < 5.5 && acceleration > -5.5 {
+                if acceleration < 5.5 && acceleration > -5.5 && velocity < 250 {
+                    print("acceleration \(acceleration), velocity \(velocity) ")
+                    if velocity > maxVelocity {
+                        print("max velocity \(maxVelocity)")
+                        maxVelocity = velocity
+                    }
                     track.append(Track(location: Location(timestamp: coordinate.timestamp, coordinates: CLLocationCoordinate2D(latitude: coordinate.coordinates.latitude, longitude: coordinate.coordinates.longitude)), meters: meters, velocity: velocity, acceleration: acceleration))
                     distance += distanceBetween2
                     path.add(CLLocationCoordinate2D(latitude: coordinate.coordinates.latitude, longitude: coordinate.coordinates.longitude))
@@ -222,7 +235,7 @@ final class MainStore: ObservableObject {
             previous = Location(timestamp: coordinate.timestamp, coordinates: CLLocationCoordinate2D(latitude: coordinate.coordinates.latitude, longitude: coordinate.coordinates.longitude))
         }
 
-        return (track: track, path: path, distance: distance)
+        return (track: track, path: path, distance: distance, maxVelocity: maxVelocity)
     }
 
     private func polylineColorizer(track: [Track]) -> [GMSStyleSpan] {
@@ -274,5 +287,14 @@ final class MainStore: ObservableObject {
         case .x8:
             return .x1
         }
+    }
+
+    private func calculateRouteDays(route: [Track]) -> String {
+        let calendar = Calendar.current
+        let firstDay = route.first?.location.timestamp ?? Date()
+        let lastDay = route.last?.location.timestamp ?? Date()
+        let firstDayComponents = calendar.dateComponents([.day, .month, .year], from: firstDay)
+        let lastDayComponents = calendar.dateComponents([.day, .month, .year], from: lastDay)
+        return "\(firstDayComponents.day ?? 01).\(firstDayComponents.month ?? 01).\(firstDayComponents.year ?? 1970) - \(lastDayComponents.day ?? 01).\( lastDayComponents.month ?? 01).\(lastDayComponents.year ?? 1970)"
     }
 }

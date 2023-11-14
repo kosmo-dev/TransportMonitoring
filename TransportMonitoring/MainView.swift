@@ -48,92 +48,24 @@ struct MainView: View {
                     }
                     .ignoresSafeArea()
                     .frame(height: geometry.size.height * 3/4)
-                    Rectangle()
-                        .frame(height: 0.5)
-                        .modifier(ForegroundColor(color: .spBorderPurple))
-                    ZStack {
-                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterialLight))
-                        VStack(spacing: 16, content: {
-                            HStack {
-                                Text("Бензовоз")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .modifier(ForegroundColor(color: .spLabelBlack))
-                                Spacer()
-                            }
-                            HStack {
-                                Image(systemName: "calendar")
-                                    .modifier(ForegroundColor(color: .spImageGray))
-                                Text("16.08.2023 - 16.08.2023")
-                                    .font(.system(size: 12))
-                                    .modifier(ForegroundColor(color: .spLabelBlack))
-                                    .lineLimit(0)
-                                Spacer()
-                                Image(systemName: "map")
-                                    .modifier(ForegroundColor(color: .spImageGray))
-                                Text("10 км")
-                                    .font(.system(size: 12))
-                                    .modifier(ForegroundColor(color: .spLabelBlack))
-                                Spacer()
-                                Image(systemName: "speedometer")
-                                    .modifier(ForegroundColor(color: .spImageGray))
-                                Text("До 98 км/ч")
-                                    .font(.system(size: 12))
-                                    .modifier(ForegroundColor(color: .spLabelBlack))
-                            }
-                            CustomSlider(sliderValue:
-                                            Binding(get: { store.state.sliderValue },
-                                                    set: { store.send(.setSliderValue($0)) }
-                                                   ), 
-                                         velocity:
-                                            Binding(get: { store.state.currentVelocity },
-                                                    set: { store.send(.setCurrentVelocity($0)) }
-                                                   )
-                            )
-                            .frame(minHeight: 30, idealHeight: 50, maxHeight: 60)
-                            HStack {
-                                Button(action: {
-                                    store.send(.forwardButtonTapped)
-                                }, label: {
-                                    Text("\(Int(store.state.forwardModifier.rawValue))x")
-                                        .font(.system(size: 16, weight: .semibold))
-                                        .modifier(ForegroundColor(color: .spBlue))
-                                })
-                                .frame(width: 36)
-                                Spacer()
-                                Button(action: {
-                                    store.send(.playButtonTapped)
-                                }, label: {
-                                    Image(systemName: store.state.playButtonIsOn ? "pause.fill" : "play.fill")
-                                        .font(.system(size: 36))
-                                        .modifier(ForegroundColor(color: .spBlue))
-                                })
-                                .frame(height: 40)
-                                Spacer()
-                                Button(action: {
-                                    store.send(.mapDescriptionTapped)
-                                }, label: {
-                                    Image(systemName: store.state.showMapDescription ? "info.circle.fill" : "info.circle")
-                                        .modifier(ForegroundColor(color: .spBlue))
-                                })
-                                .frame(width: 44)
-                            }
-                        })
-                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
-                    }
+                    BottomView().environmentObject(store)
                     .ignoresSafeArea()
                 })
                 if store.state.showMapDescription {
-                    MapDescriptionView(viewIsAppeared:
-                                        Binding(get: { store.state.showMapDescription },
-                                                set: { _ in store.send(.mapDescriptionTapped) })
-                    )
+                    VStack {
+                        Spacer()
+                        MapDescriptionView(viewIsAppeared:
+                                            Binding(get: { store.state.showMapDescription },
+                                                    set: { _ in store.send(.mapDescriptionTapped) })
+                        )
+                    }
                 }
                 if store.state.showLoadingIndicator {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
                             .modifier(ForegroundColor(color: .white))
                         ProgressView() {
-                            Text("Loading")
+                            Text("Загрузка")
                         }
                     }
                     .frame(width: 100, height: 100)
@@ -141,8 +73,8 @@ struct MainView: View {
             }
         }
         .onAppear(perform: {
-            store.send(.showLoadingIndicator(true))
-            store.send(.makeRequest)
+//            store.send(.showLoadingIndicator(true))
+//            store.send(.makeRequest)
         })
     }
 }

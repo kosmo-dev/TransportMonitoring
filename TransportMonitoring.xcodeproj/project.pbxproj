@@ -28,6 +28,7 @@
 		3D269E132B035FB000943E2C /* ForwardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E122B035FB000943E2C /* ForwardModifier.swift */; };
 		3D269E152B035FD000943E2C /* PolylineIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */; };
 		3D269E172B035FF300943E2C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E162B035FF300943E2C /* Track.swift */; };
+		3D269E192B038CB100943E2C /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E182B038CB100943E2C /* BottomView.swift */; };
 		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		3D269E122B035FB000943E2C /* ForwardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardModifier.swift; sourceTree = "<group>"; };
 		3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineIdentifiable.swift; sourceTree = "<group>"; };
 		3D269E162B035FF300943E2C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		3D269E182B038CB100943E2C /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,12 +97,8 @@
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
 				3D2507A22AFE6391008835E5 /* MainView.swift */,
 				3D2507CA2AFFAA0B008835E5 /* MainStore.swift */,
-				3D2507AE2AFE7323008835E5 /* MapView.swift */,
-				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
-				3D2507B42AFEA379008835E5 /* CustomSlider.swift */,
-				3D2507B62AFEBBBD008835E5 /* ZoomButton.swift */,
-				3D269E0E2B02CFA900943E2C /* FollowButton.swift */,
-				3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */,
+				3DB9D3F52B038F16007F60EA /* MapView */,
+				3DB9D3F42B038F05007F60EA /* ViewComponents */,
 				3D2507CC2AFFF374008835E5 /* Service */,
 				3D2507B82AFEC029008835E5 /* DesignSystem */,
 				3D2507D12AFFF414008835E5 /* Models */,
@@ -147,6 +145,27 @@
 				3D269E162B035FF300943E2C /* Track.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3DB9D3F42B038F05007F60EA /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507B42AFEA379008835E5 /* CustomSlider.swift */,
+				3D2507B62AFEBBBD008835E5 /* ZoomButton.swift */,
+				3D269E0E2B02CFA900943E2C /* FollowButton.swift */,
+				3D2507BD2AFED0BD008835E5 /* MapDescriptionView.swift */,
+				3D269E182B038CB100943E2C /* BottomView.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		3DB9D3F52B038F16007F60EA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				3D2507AE2AFE7323008835E5 /* MapView.swift */,
+				3D2507B02AFE75C5008835E5 /* MapViewController.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		4ECDD4E4DADB28AF046874DB /* Pods */ = {
@@ -299,6 +318,7 @@
 				3D269E112B035C1300943E2C /* GeometryService.swift in Sources */,
 				3D2507CB2AFFAA0B008835E5 /* MainStore.swift in Sources */,
 				3D2507CE2AFFF395008835E5 /* NetworkClient.swift in Sources */,
+				3D269E192B038CB100943E2C /* BottomView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
