@@ -7,20 +7,17 @@
 
 import UIKit
 import GoogleMaps
-import Combine
 
 final class MapViewController: UIViewController {
 
     var coordinator: MapView.Coordinator
 
-    var cancellables: Set<AnyCancellable> = []
-
     var map: GMSMapView?
 
     var currentPolylineID: UUID = UUID()
     var currentZoom: Float = 15
-    var currentLocation = CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346)
-    var marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 55.694680, longitude: 37.556346))
+    var currentLocation = CLLocationCoordinate2D(latitude: 55.755802, longitude: 37.617705)
+    var marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 55.755802, longitude: 37.617705))
     var animationStarted = false
     var stopAnimationCalled = false
     var locationCounter: Int?
@@ -61,20 +58,12 @@ final class MapViewController: UIViewController {
         }
     }
 
-
     func zoomMapWithAnimation(zoom: Float) {
         guard zoom != currentZoom else { return }
         map?.animate(toZoom: zoom)
         currentZoom = zoom
         print("zoom set")
     }
-
-//    func moveMapToLocationWithAnimation(_ location: CLLocationCoordinate2D) {
-//        guard currentLocation.latitude != location.latitude && currentLocation.longitude != location.longitude else { return }
-//        map?.animate(toLocation: location)
-//        currentLocation = location
-//        print("location set")
-//    }
 
     func setMarkerLocation(location: CLLocationCoordinate2D, completion: @escaping () -> Void) {
         CATransaction.begin()
@@ -117,8 +106,8 @@ final class MapViewController: UIViewController {
                         break
                     }
                     await withCheckedContinuation { continuation in
-                        let coordinates = CLLocationCoordinate2D(latitude: route[counter].lastLocation.longitude, longitude: route[counter].lastLocation.latitude)
-                        let rotation = DegreeBearing(A: previousCoordinate, B: coordinates)
+                        let coordinates = route[counter].location.coordinates
+                        let rotation = GeometryService.DegreeBearing(A: previousCoordinate, B: coordinates)
 
                         marker.rotation = rotation
                         setMarkerLocation(location: coordinates) { [weak self] in
@@ -137,26 +126,5 @@ final class MapViewController: UIViewController {
                 stopAnimationCalled = false
             }
         }
-    }
-
-    private func DegreeBearing(A: CLLocationCoordinate2D, B: CLLocationCoordinate2D) -> Double {
-        var dlon = ToRad(degrees: B.longitude - A.longitude)
-        let dPhi = log(tan(ToRad(degrees: B.latitude) / 2 + .pi / 4) / tan(ToRad(degrees: A.latitude) / 2 + .pi / 4))
-        if  abs(dlon) > .pi {
-            dlon = (dlon > 0) ? (dlon - 2 * .pi) : (2 * .pi + dlon)
-        }
-        return self.ToBearing(radians: atan2(dlon, dPhi))
-    }
-
-    private func ToRad(degrees: Double) -> Double {
-        return degrees * ( .pi / 180)
-    }
-
-    private func ToBearing(radians: Double) -> Double {
-        return (ToDegrees(radians: radians) + 360).truncatingRemainder(dividingBy: 360)
-    }
-
-    private func ToDegrees(radians: Double) -> Double{
-        return radians * 180 / .pi
     }
 }

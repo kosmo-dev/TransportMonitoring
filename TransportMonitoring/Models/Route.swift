@@ -6,25 +6,6 @@
 //
 
 import Foundation
-import GoogleMaps
-
-struct Location: Codable {
-    var timestamp: Date
-    var latitude: Double
-    var longitude: Double
-}
-
-struct Track {
-    let lastLocation: Location
-    let meters: Double
-    let velocity: Double
-    let acceleration: Double
-}
-
-struct PolylineIdentifiable {
-    let id: UUID
-    let polyline: GMSPolyline
-}
 
 enum RouteElement: Codable {
     case double(Double)
@@ -53,11 +34,3 @@ enum RouteElement: Codable {
         }
     }
 }
-
-enum ForwardModifier: Double {
-    case x1 = 1
-    case x4 = 4
-    case x8 = 8
-}
-
-typealias Route = [[RouteElement]]

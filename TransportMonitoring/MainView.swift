@@ -15,8 +15,6 @@ struct MainView: View {
             ZStack {
                 VStack(spacing: 0, content: {
                     ZStack {
-//                        Rectangle()
-//                            .modifier(ForegroundColor(color: .gray))
                         MapView(
                             polyline: Binding(get: { store.state.polyline }, set: { _ in }),
                             zoom: Binding(get: { store.state.zoom}, set: { _ in }), 
@@ -25,9 +23,6 @@ struct MainView: View {
                             startRouteAnimation: Binding(get: { store.state.startRouteAnimation }, set: { _ in }), 
                             stopAnimation: Binding(get: { store.state.stopRouteAnimation }, set: { _ in }), 
                             forwardModifier: Binding(get: { store.state.forwardModifier }, set: { _ in }), 
-                            trackCounter: Binding(get: { store.state.trackCounter }, set: { counter in
-                                store.send(.calculateSliderValue(counter))
-                            }), 
                             store: Binding(get: { store }, set: { _ in })
                         )
                         HStack {

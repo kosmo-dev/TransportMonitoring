@@ -18,8 +18,7 @@ enum NetworkClientError: Error {
 }
 
 protocol NetworkClientProtocol {
-//    func send<T:Decodable>(_ type: T.Type, request: NetworkRequest) -> AnyPublisher<T, Error>
-    func send<T:Decodable>(_ type: T.Type, request: NetworkRequest) -> AnyPublisher<Data, Never>
+    func send(request: NetworkRequest) -> AnyPublisher<Data, Never>
 }
 
 struct NetworkClient: NetworkClientProtocol {
@@ -35,7 +34,7 @@ struct NetworkClient: NetworkClientProtocol {
         self.encoder = encoder
     }
 
-    func send<T:Decodable>(_ type: T.Type, request: NetworkRequest) -> AnyPublisher<Data, Never> {
+    func send(request: NetworkRequest) -> AnyPublisher<Data, Never> {
         guard let urlRequest = create(request: request) else {
             return Just(Data()).eraseToAnyPublisher()
         }
