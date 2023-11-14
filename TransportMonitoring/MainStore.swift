@@ -16,8 +16,7 @@ struct MainState {
     var showMapDescription = false
     var showLoadingIndicator = false
     var polyline: PolylineIdentifiable = PolylineIdentifiable(id: UUID(), polyline: GMSPolyline())
-    var zoom: Float = 15
-    var coordinates: [Track] = []
+    var zoom: Float = 12
     var route: [Track] = []
     var markerLocation = CLLocationCoordinate2D()
     var startRouteAnimation = false
@@ -50,13 +49,13 @@ final class MainStore: ObservableObject {
         case followButtonTapped
         case calculateSliderValue(Int)
         case setCurrentVelocity(Int)
+        case routeAnimationStoppedDelegate
     }
 
     func send(_ action: Action) {
         guard let effect = reducer(state: &state, action: action) else {
             return
         }
-
         effect
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: send)
@@ -67,13 +66,12 @@ final class MainStore: ObservableObject {
         switch action {
         case .playButtonTapped:
             state.playButtonIsOn.toggle()
-            state.route = state.coordinates
             if state.startRouteAnimation == false {
                 state.startRouteAnimation = true
                 state.stopRouteAnimation = false
             } else {
-                state.stopRouteAnimation = true
                 state.startRouteAnimation = false
+                state.stopRouteAnimation = true
             }
             return nil
 
@@ -87,13 +85,13 @@ final class MainStore: ObservableObject {
 
         case let .setSliderValue(value):
             state.sliderValue = value
-            var counter = Int(value / CGFloat(100) * CGFloat(state.coordinates.count))
-            if counter > (state.coordinates.count - 1) {
-                counter = state.coordinates.count - 1
+            var counter = Int(value / CGFloat(100) * CGFloat(state.route.count))
+            if counter > (state.route.count - 1) {
+                counter = state.route.count - 1
             }
-            let location = state.coordinates[counter].location
+            let location = state.route[counter].location
             let clLocation = CLLocationCoordinate2D(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude)
-            let velocity = state.coordinates[counter].velocity
+            let velocity = state.route[counter].velocity
             state.markerLocation = clLocation
             state.currentVelocity = Int(velocity)
             state.trackCounter = counter
@@ -104,13 +102,15 @@ final class MainStore: ObservableObject {
             return nil
 
         case .followButtonTapped:
-            state.zoom = 18
+            if !state.followTrackIsOn {
+                state.zoom = state.zoom + 1.5
+            }
             state.followTrackIsOn.toggle()
             return nil
 
         case let .setRoute(polyline: polyline, route: route):
             state.polyline = PolylineIdentifiable(id: UUID(), polyline: polyline)
-            state.coordinates = route
+            state.route = route
             return Just(())
                 .map { Action.showLoadingIndicator(false) }
                 .eraseToAnyPublisher()
@@ -155,6 +155,10 @@ final class MainStore: ObservableObject {
 
         case .zoomOutTapped:
             state.zoom -= 1
+            return nil
+            
+        case .routeAnimationStoppedDelegate:
+            state.stopRouteAnimation = false
             return nil
         }
     }

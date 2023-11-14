@@ -17,7 +17,6 @@ struct MapView: UIViewControllerRepresentable {
     @Binding var stopAnimation: Bool
     @Binding var forwardModifier: ForwardModifier
 
-//    @Binding var trackCounter: Int
     @Binding var store: MainStore
 
     typealias UIViewControllerType = MapViewController
@@ -34,7 +33,6 @@ struct MapView: UIViewControllerRepresentable {
             print("startRouteAnimation \(startRouteAnimation)")
             uiViewController.startRoute(route: route)
         }
-
         if stopAnimation {
             uiViewController.stopAnimation()
         }
