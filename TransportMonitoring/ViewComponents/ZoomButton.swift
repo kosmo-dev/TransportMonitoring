@@ -32,7 +32,5 @@ struct ZoomButton: View {
 }
 
 #Preview {
-    ZoomButton(imageSystemName: "plus") {
-        print("Button tapped")
-    }
+    ZoomButton(imageSystemName: "plus") {}
 }

@@ -124,7 +124,7 @@ final class MainStore: ObservableObject {
 
         case let .calculateSliderValue(counter):
             state.sliderValue = CGFloat(counter) / CGFloat(state.route.count) * 100
-            print("slider: \(state.sliderValue)")
+            state.trackCounter = counter
             return nil
 
         case let .setCurrentVelocity(velocity):
@@ -137,7 +137,6 @@ final class MainStore: ObservableObject {
                 .map { [weak self] data in
                     guard let self else { return (GMSPolyline(), [], 0, 0) }
                     var locations: [[RouteElement]] = []
-                    print(data)
                     do {
                         locations = try JSONDecoder().decode([[RouteElement]].self, from: data)
                     } catch {
@@ -221,9 +220,7 @@ final class MainStore: ObservableObject {
                 let acceleration = (velocity / 3.6 - previousVelocity / 3.6) / seconds
 
                 if acceleration < 5.5 && acceleration > -5.5 && velocity < 250 {
-                    print("acceleration \(acceleration), velocity \(velocity) ")
                     if velocity > maxVelocity {
-                        print("max velocity \(maxVelocity)")
                         maxVelocity = velocity
                     }
                     track.append(Track(location: Location(timestamp: coordinate.timestamp, coordinates: CLLocationCoordinate2D(latitude: coordinate.coordinates.latitude, longitude: coordinate.coordinates.longitude)), meters: meters, velocity: velocity, acceleration: acceleration))

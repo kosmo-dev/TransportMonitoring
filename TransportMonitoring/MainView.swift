@@ -73,8 +73,8 @@ struct MainView: View {
             }
         }
         .onAppear(perform: {
-//            store.send(.showLoadingIndicator(true))
-//            store.send(.makeRequest)
+            store.send(.showLoadingIndicator(true))
+            store.send(.makeRequest)
         })
     }
 }

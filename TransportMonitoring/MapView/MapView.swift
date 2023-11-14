@@ -26,11 +26,9 @@ struct MapView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        print("updateUIViewController called")
         uiViewController.setPolyline(polyline: polyline)
         uiViewController.zoomMapWithAnimation(zoom: zoom)
         if startRouteAnimation {
-            print("startRouteAnimation \(startRouteAnimation)")
             uiViewController.startRoute(route: route)
         }
         if stopAnimation {

@@ -50,7 +50,6 @@ final class MapViewController: UIViewController {
         guard currentPolylineID != polyline.id else { return }
         polyline.polyline.map = map
         currentPolylineID = polyline.id
-        print("polyline set")
     }
 
     func moveMarkerWithoutAnimation(to location: CLLocationCoordinate2D) {
@@ -64,7 +63,6 @@ final class MapViewController: UIViewController {
         guard zoom != currentZoom else { return }
         map?.animate(toZoom: zoom)
         currentZoom = zoom
-        print("zoom set")
     }
 
     func stopAnimation() {
@@ -78,7 +76,6 @@ final class MapViewController: UIViewController {
 
     func startRoute(route: [Track]) {
         guard !animationStarted else { return }
-        print("start route")
         animationStarted = true
         Task {
             var counter = coordinator.store.state.trackCounter
@@ -103,7 +100,6 @@ final class MapViewController: UIViewController {
                     }
                 }
             }
-            print("finish animation")
             animationStarted = false
             stopAnimationCalled = false
             coordinator.store.send(.routeAnimationStoppedDelegate)

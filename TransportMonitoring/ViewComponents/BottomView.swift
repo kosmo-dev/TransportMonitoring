@@ -30,6 +30,7 @@ struct BottomView: View {
                         .font(.system(size: 12))
                         .modifier(ForegroundColor(color: .spLabelBlack))
                         .lineLimit(0)
+                        .minimumScaleFactor(0.5)
                     Spacer()
                     Image("distance")
                         .modifier(ForegroundColor(color: .spImageGray))
