@@ -29,6 +29,7 @@
 		3D269E152B035FD000943E2C /* PolylineIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */; };
 		3D269E172B035FF300943E2C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E162B035FF300943E2C /* Track.swift */; };
 		3D269E192B038CB100943E2C /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D269E182B038CB100943E2C /* BottomView.swift */; };
+		3DB9D3F82B0394E4007F60EA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9D3F72B0394E4007F60EA /* APIKey.swift */; };
 		8F9DFE530485DE698437A429 /* Pods_TransportMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		3D269E142B035FD000943E2C /* PolylineIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineIdentifiable.swift; sourceTree = "<group>"; };
 		3D269E162B035FF300943E2C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		3D269E182B038CB100943E2C /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		3DB9D3F72B0394E4007F60EA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		57A39C168A1370F34B77DC6A /* Pods-TransportMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		AE54D21CCFAE7FF98AA588DA /* Pods_TransportMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852CD0772FC5120C7E4E660 /* Pods-TransportMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportMonitoring.release.xcconfig"; path = "Target Support Files/Pods-TransportMonitoring/Pods-TransportMonitoring.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				3D2507A02AFE6391008835E5 /* TransportMonitoringApp.swift */,
 				3D2507A22AFE6391008835E5 /* MainView.swift */,
 				3D2507CA2AFFAA0B008835E5 /* MainStore.swift */,
+				3DB9D3F72B0394E4007F60EA /* APIKey.swift */,
 				3DB9D3F52B038F16007F60EA /* MapView */,
 				3DB9D3F42B038F05007F60EA /* ViewComponents */,
 				3D2507CC2AFFF374008835E5 /* Service */,
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2507D02AFFF39E008835E5 /* NetworkRequest.swift in Sources */,
+				3DB9D3F82B0394E4007F60EA /* APIKey.swift in Sources */,
 				3D2507B72AFEBBBD008835E5 /* ZoomButton.swift in Sources */,
 				3D2507A32AFE6391008835E5 /* MainView.swift in Sources */,
 				3D269E132B035FB000943E2C /* ForwardModifier.swift in Sources */,
