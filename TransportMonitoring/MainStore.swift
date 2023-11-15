@@ -151,7 +151,7 @@ final class MainStore: ObservableObject {
                     let polyline = GMSPolyline(path: calculation.path)
                     let colors = self.polylineColorizer(track: calculation.track)
                     polyline.spans = colors
-                    polyline.strokeWidth = 2
+                    polyline.strokeWidth = 1
                     return (polyline, calculation.track, calculation.distance, calculation.maxVelocity)
                 }
                 .map({ (polyline, route, distance, maxVelocity) in
