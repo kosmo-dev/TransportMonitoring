@@ -44,6 +44,7 @@ final class MapViewController: UIViewController {
         marker.icon = UIImage(named: "marker")
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         marker.map = map
+        map?.delegate = self
     }
 
     // MARK: - Public MEthods
@@ -125,5 +126,14 @@ final class MapViewController: UIViewController {
             map?.animate(with: cameraUpdate)
         }
         CATransaction.commit()
+    }
+}
+
+// MARK: - GMSMapViewDelegate
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture {
+            coordinator.store.send(.deactivateFollowTrack)
+        }
     }
 }

@@ -53,6 +53,7 @@ final class MainStore: ObservableObject {
         case calculateSliderValue(Int)
         case setCurrentVelocity(Int)
         case routeAnimationStoppedDelegate
+        case deactivateFollowTrack
     }
 
     func send(_ action: Action) {
@@ -165,6 +166,10 @@ final class MainStore: ObservableObject {
             
         case .routeAnimationStoppedDelegate:
             state.stopRouteAnimation = false
+            return nil
+
+        case .deactivateFollowTrack:
+            state.followTrackIsOn = false
             return nil
         }
     }
