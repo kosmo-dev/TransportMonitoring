@@ -14,7 +14,7 @@ struct MainState {
     var playButtonIsOn = false
     var forwardModifier: ForwardModifier = .x1
     var showMapDescription = false
-    var showLoadingIndicator = false
+    var showSplashScreen = true
     var polyline: PolylineIdentifiable = PolylineIdentifiable(id: UUID(), polyline: GMSPolyline())
     var zoom: Float = 12
     var route: [Track] = []
@@ -44,7 +44,7 @@ final class MainStore: ObservableObject {
         case forwardButtonTapped
         case mapDescriptionTapped
         case setSliderValue(CGFloat)
-        case showLoadingIndicator(Bool)
+        case showSplashScreen(Bool)
         case setRouteParameters(polyline: GMSPolyline, route: [Track], distance: Double, maxSpeed: Double)
         case makeRequest
         case zoomInTapped
@@ -102,8 +102,8 @@ final class MainStore: ObservableObject {
             state.trackCounter = counter
             return nil
 
-        case let .showLoadingIndicator(show):
-            state.showLoadingIndicator = show
+        case let .showSplashScreen(show):
+            state.showSplashScreen = show
             return nil
 
         case .followButtonTapped:
@@ -120,7 +120,7 @@ final class MainStore: ObservableObject {
             state.maxSpeed = Int(maxSpeed)
             state.routeDays = calculateRouteDays(route: route)
             return Just(())
-                .map { Action.showLoadingIndicator(false) }
+                .map { Action.showSplashScreen(false) }
                 .eraseToAnyPublisher()
 
         case let .calculateSliderValue(counter):
@@ -134,9 +134,8 @@ final class MainStore: ObservableObject {
 
         case .makeRequest:
             return client.send(request: RouteRequest())
-                .receive(on: DispatchQueue.main)
                 .map { [weak self] data in
-                    guard let self else { return (GMSPolyline(), [], 0, 0) }
+                    guard let self else { return ([Location]()) }
                     var locations: [[RouteElement]] = []
                     do {
                         locations = try JSONDecoder().decode([[RouteElement]].self, from: data)
@@ -144,6 +143,10 @@ final class MainStore: ObservableObject {
                         print("error in decoding")
                     }
                     let coordinates = coordinatesDecoder(locations: locations)
+                    return coordinates
+                }
+                .receive(on: DispatchQueue.main)
+                .map { coordinates in
                     let calculation = self.physicalCalculation(coordinates)
                     let polyline = GMSPolyline(path: calculation.path)
                     let colors = self.polylineColorizer(track: calculation.track)
