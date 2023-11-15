@@ -21,6 +21,7 @@ struct BottomView: View {
                     Text("Бензовоз")
                         .font(.system(size: 20, weight: .semibold))
                         .modifier(ForegroundColor(color: .spLabelBlack))
+                        .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0))
                     Spacer()
                 }
                 HStack {
@@ -59,10 +60,11 @@ struct BottomView: View {
                         store.send(.forwardButtonTapped)
                     }, label: {
                         Text("\(Int(store.state.forwardModifier.rawValue))x")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 20, weight: .semibold))
                             .modifier(ForegroundColor(color: .spBlue))
                     })
-                    .frame(width: 36)
+                    .frame(width: 30)
+                    .padding()
                     Spacer()
                     Button(action: {
                         store.send(.playButtonTapped)
@@ -77,9 +79,11 @@ struct BottomView: View {
                         store.send(.mapDescriptionTapped)
                     }, label: {
                         Image(systemName: store.state.showMapDescription ? "info.circle.fill" : "info.circle")
+                            .font(.system(size: 20, weight: .semibold))
                             .modifier(ForegroundColor(color: .spBlue))
                     })
-                    .frame(width: 44)
+                    .frame(width: 30)
+                    .padding()
                 }
             })
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
