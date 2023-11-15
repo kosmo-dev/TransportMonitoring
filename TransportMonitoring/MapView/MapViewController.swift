@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMaps
+import Combine
 
 final class MapViewController: UIViewController {
 
@@ -43,6 +44,7 @@ final class MapViewController: UIViewController {
         marker.icon = UIImage(named: "marker")
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         marker.map = map
+        map?.delegate = self
     }
 
     // MARK: - Public MEthods
@@ -78,7 +80,12 @@ final class MapViewController: UIViewController {
         guard !animationStarted else { return }
         animationStarted = true
         Task {
-            var counter = coordinator.store.state.trackCounter
+            var counter = 0
+
+            var cancellable = coordinator.store.$state.sink { state in
+                counter = state.trackCounter
+            }
+
             var previousCoordinate = currentLocation
 
             while counter < route.count {
@@ -91,10 +98,9 @@ final class MapViewController: UIViewController {
 
                     marker.rotation = rotation
                     setMarkerLocation(location: coordinates) { [weak self] in
-                        self?.coordinator.store.send(.calculateSliderValue(counter))
                         let velocity = route[counter].velocity
                         self?.coordinator.store.send(.setCurrentVelocity(Int(velocity)))
-                        counter += 1
+                        self?.coordinator.store.send(.calculateSliderValue(counter + 1))
                         previousCoordinate = coordinates
                         continuation.resume()
                     }
@@ -120,5 +126,14 @@ final class MapViewController: UIViewController {
             map?.animate(with: cameraUpdate)
         }
         CATransaction.commit()
+    }
+}
+
+// MARK: - GMSMapViewDelegate
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture {
+            coordinator.store.send(.deactivateFollowTrack)
+        }
     }
 }
